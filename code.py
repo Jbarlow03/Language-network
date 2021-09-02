@@ -23,7 +23,7 @@ def main(mutatorsNo,meetings):      #this is the main function
         +"-above_"+str(mabove)+"-below_"+str(mbelow)\
         +"-pabove_"+str(pabove)+".csv"
 
-    for i in range(1):                #running the simulation 10 times
+    for i in range(1):                #running the simulation 1 times
         run(vowels, mutatorsNo, meetings, datapath, fn, networksize, nattach, mabove, mbelow, pabove)
 
 
@@ -35,12 +35,12 @@ def run(vowels,mutatorsNo,meetings,datapath,fn,networksize,nattach,mabove,mbelow
     random.seed(a=int(simulation))
     
     community=[]
-    population=nx.barabasi_albert_graph(networksize, nattach, seed=int(simulation))  #creating the population of 1000people
+    population=nx.barabasi_albert_graph(networksize, nattach, seed=int(simulation))  #creating the population of 20people
     
     
     for i in range(networksize): #going through the whole population
     
-        size=population.degree(i)   #tell the degree of node i aka how many freinds the agent has
+        size=population.degree(i)   #tell the degree of node i aka how many friends the agent has
         neighbors=set()            
         
         for node,edge in population.edges(i):
@@ -243,7 +243,7 @@ def interactionSpace (community, mutators, vowels, vowel1, vowel2, meetings,muta
             if index in bannedInterloc: continue        #banned so move on
 
             if speaker.network.intersection(bannedInterloc)==speaker.network:        
-                interloc=random.choice(list(speaker.network))                        #soemthing about the neighbors
+                interloc=random.choice(list(speaker.network))                        #something about the neighbors
 
             else: 
                 updatedNetwork=speaker.network.difference(bannedInterloc)
