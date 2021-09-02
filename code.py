@@ -18,15 +18,12 @@ def main(mutatorsNo,meetings):      #this is the main function
     mbelow=10
     pabove=0
     
-
-    #datapath="/Users/pmzrt/TCT Dropbox/Language/Networks/Data/"
     datapath="/Users/joebarlow/Desktop/Project/"
     fn="Barabasi-N_"+str(networksize)+"-p_"+str(nattach)\
         +"-above_"+str(mabove)+"-below_"+str(mbelow)\
         +"-pabove_"+str(pabove)+".csv"
 
     for i in range(1):                #running the simulation 10 times
-
         run(vowels, mutatorsNo, meetings, datapath, fn, networksize, nattach, mabove, mbelow, pabove)
 
 
@@ -34,12 +31,10 @@ def run(vowels,mutatorsNo,meetings,datapath,fn,networksize,nattach,mabove,mbelow
     
     vowel1=vowels['a']
     vowel2=vowels['aa']
-    
     simulation=datetime.now().strftime("%d%m%Y%H%M%S")
     random.seed(a=int(simulation))
     
     community=[]
-
     population=nx.barabasi_albert_graph(networksize, nattach, seed=int(simulation))  #creating the population of 1000people
     
     
@@ -53,7 +48,6 @@ def run(vowels,mutatorsNo,meetings,datapath,fn,networksize,nattach,mabove,mbelow
             neighbors.add(edge)              #listing all the neighbours of an agent
             
         speaker=Speaker(vowels, size,neighbors)    #each agent has 3 things, the way they soeak, number of neighbours, list of neighbours
-
         community.append(speaker)     #adding the speaker to the community
     
     networkLength=[]
@@ -63,7 +57,6 @@ def run(vowels,mutatorsNo,meetings,datapath,fn,networksize,nattach,mabove,mbelow
     for speaker in community:       #going through each agent in community
 
         networkLength.append(speaker.size)  #adding the speaker's degree to a list, contains everyone's degree
-
         interlocPopularityTemp=[]
 
         for interloc in speaker.network:   #cycle through neigboirs of speaker in big for loop
@@ -80,22 +73,14 @@ def run(vowels,mutatorsNo,meetings,datapath,fn,networksize,nattach,mabove,mbelow
     
     mutators=mutate (community, vowel1, vowel2, mutatorsNo, medInterlocPopularity, mbelow, mabove, pabove)
     mutatorsIndice=set()    #list of all the indexes of each mutator, so we know who they are
-    #print("mutator nodes= ", population.nbunch_iter())
+   
     for speaker in mutators:
 
         mutatorsIndice.add(community.index(speaker))  #index of each speaker who are mutators
         
         
     speakersIndice=[x for x in list(range(0,networksize)) if x not in mutatorsIndice]
-    
-    
-    #nx.write_edgelist(population,'/Users/joebarlow/Desktop/Project/Barabasi-'+simulation+'-Edges.csv',delimiter=',')    
-    #nx.draw_spring(population)
-    #print("population.nodes= ", population.nodes)
-    #print("population.edges= ", population.edges)
-    #print("population.degree= ", population.degree)
-    #print("population weights= ",nx.get_edge_attributes(population, "weight"))
-          
+         
     interactionSpace(community, mutators, vowels, vowel1, vowel2, meetings,mutatorsIndice,speakersIndice,log,percentile10,median,percentile90,simulation, mutatorsNo, datapath) 
     
 
@@ -138,7 +123,6 @@ class Speaker(object):    #we are creating a class and put objects in it
 
             f1=random.normalvariate(self.vowels[vowel][0][0], self.vowels[vowel][0][1])   #frequency + sd
             f2=random.normalvariate(self.vowels[vowel][1][0], self.vowels[vowel][1][1])   #frequency + sd
-
             speech[vowel]=(f1, f2)
 
         return speech
@@ -150,8 +134,7 @@ class Speaker(object):    #we are creating a class and put objects in it
         for vowel in self.vowels:
 
             updatedf1=0.1/(self.size)*speech[vowel][0]+(10.0*self.size-1)/(10.0*(self.size))*self.vowels[vowel][0][0]  #after each interaction the agent updates his frequency of F1 to be a bit similar to what he heard
-            updatedf2=0.1/(self.size)*speech[vowel][1]+(10.0*self.size-1)/(10.0*self.size)*self.vowels[vowel][1][0]   #after each interaction the agent updates his frequency of F2 to be a bit similar to what he heard
-           
+            updatedf2=0.1/(self.size)*speech[vowel][1]+(10.0*self.size-1)/(10.0*self.size)*self.vowels[vowel][1][0]   #after each interaction the agent updates his frequency of F2 to be a bit similar to what he heard       
             updatedf1sd=math.sqrt((10.0*self.size-2)/(10.0*self.size-1)*self.vowels[vowel][0][1]**2+0.1/self.size*(speech[vowel][0]-self.vowels[vowel][0][0])**2)  #after each interaction the agent updates his standard deviation of frequency of F1 to be a bit similar to what he heard
             updatedf2sd=math.sqrt((10.0*self.size-2)/(10.0*self.size-1)*self.vowels[vowel][1][1]**2+0.1/self.size*(speech[vowel][1]-self.vowels[vowel][1][0])**2)   #after each interaction the agent updates his standard deviation of frequency of F1 to be a bit similar to what he heard
             
@@ -168,8 +151,7 @@ class Speaker(object):    #we are creating a class and put objects in it
             else:
 
                 updatedf1=0.1/self.size*speech[vowel][0]+(10.0*self.size-1)/(10.0*self.size)*self.vowels[vowel][0][0]
-                updatedf2=0.1/self.size*speech[vowel][1]+(10.0*self.size-1)/(10.0*self.size)*self.vowels[vowel][1][0]
-                
+                updatedf2=0.1/self.size*speech[vowel][1]+(10.0*self.size-1)/(10.0*self.size)*self.vowels[vowel][1][0]               
                 updatedf1sd=math.sqrt((10.0*self.size-2)/(10.0*self.size-1)*self.vowels[vowel][0][1]**2+0.1/self.size*(speech[vowel][0]-self.vowels[vowel][0][0])**2)
                 updatedf2sd=math.sqrt((10.0*self.size-2)/(10.0*self.size-1)*self.vowels[vowel][1][1]**2+0.1/self.size*(speech[vowel][1]-self.vowels[vowel][1][0])**2)
                 
@@ -190,7 +172,6 @@ def generateSpeakerDutch(vowels):
         for index, (formantMu, formantSigma) in enumerate(vowelFormants):
 
             mean=random.normalvariate(formantMu, formantSigma)      
-
             formantsTemp.append((mean,mean*0.02))
 
         speakerVowels[vowelName]=formantsTemp
@@ -327,22 +308,6 @@ def vowelChange(vowels, community, mutators,vowel1,mutatorsIndice,speakersIndice
                       #'mean': np.sqrt((np.mean(currentf1a)-np.mean(currentf1aa))**2+(np.mean(currentf2a)-np.mean(currentf2aa))**2)})
      
     #df.to_csv(datapath+'Barabasi4.csv',index=False, mode='a')
-                     
-    #f = open("new2.txt", "a")
-    #print(np.sqrt((np.mean(currentf1a)-np.mean(currentf1aa))**2+(np.mean(currentf2a)-np.mean(currentf2aa))**2),",",end='',file=f) #mean distance
-    #f.close()
-    
-    #print(np.mean(currentf1aa),",", end='')   #mean f1aa
-
-    #f = open("currentf1a.txt", "a")
-    #print(np.mean(currentf1a),",", end='')
-    #f.close()
-    
-    #print(number,",",end='', file=f)    #number of speakers within limit
-    
-    
-    
-    #print("population.node.data= ", population.nodes.data())
     
                             
 
