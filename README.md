@@ -1,11 +1,10 @@
 # Language-network
 This code simulates a scenario where language change occurs based on social network size and records the results.
 
-A population of 1000 agents (speakers) is created using an Albert Barabasi algorithm from the Python NetworkX package. 
+A population of an adjustable number of agents (speakers) is created using an Albert Barabasi algorithm from the Python NetworkX package. 
 This algorithm creates networks with a free-scale structure. In such networks the distribution of agents’ network size follows a power law. 
 
-All agents in the community know two Dutch vowels, /ɑ/ and /a:/. Each agent is ascribed mean formant frequencies for these two vowels according to published data about the
-formant frequency distribution of these vowels in the population. 
+All agents in the community know two Dutch vowels, /ɑ/ and /a:/. Each agent is ascribed mean formant frequencies for these two vowels according to published data about the formant frequency distribution of these vowels in the population. 
 
 In the population there is an adjustable number of mutators (mutatorsNo) who will be either connected to agents whose average network size is in the top 
 10% of the population (Neighbors with Large Social Network)or to agents whose average network size is in the bottom 10% of the population (Neighbors with Small Social Network). 
