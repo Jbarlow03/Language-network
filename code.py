@@ -80,7 +80,17 @@ def run(vowels,mutatorsNo,meetings,datapath,fn,networksize,nattach,mabove,mbelow
         
         
     speakersIndice=[x for x in list(range(0,networksize)) if x not in mutatorsIndice]
-         
+      
+        
+    #nx.write_edgelist(population,'/Users/joebarlow/Desktop/Project/Barabasi-'+simulation+'-Edges.csv',delimiter=',')    
+    #nx.draw_spring(population)
+    #print("population.nodes= ", population.nodes)
+    #print("population.edges= ", population.edges)
+    #print("population.degree= ", population.degree)
+    #print("population weights= ",nx.get_edge_attributes(population, "weight"))
+        
+        
+        
     interactionSpace(community, mutators, vowels, vowel1, vowel2, meetings,mutatorsIndice,speakersIndice,log,percentile10,median,percentile90,simulation, mutatorsNo, datapath) 
     
 
