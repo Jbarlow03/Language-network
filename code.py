@@ -41,8 +41,11 @@ def run(vowels,mutatorsNo,meetings,datapath,fn,networksize,nattach,mabove,mbelow
     for i in range(networksize): #going through the whole population
     
         size=population.degree(i)   #tell the degree of node i aka how many friends the agent has
-        neighbors=set()            
+        neighbors=set()
         
+        #for (u,v) in population.edges(i):
+            #population.edges[u,v]['weight'] = random.uniform(0.1,1.0)
+            
         for node,edge in population.edges(i):
 
             neighbors.add(edge)              #listing all the neighbours of an agent
