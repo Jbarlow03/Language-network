@@ -44,7 +44,7 @@ def run(vowels,mutatorsNo,meetings,datapath,fn,networksize,nattach,mabove,mbelow
         neighbors=set()
         
         #for (u,v) in population.edges(i):
-            #population.edges[u,v]['weight'] = random.uniform(0.1,1.0)
+            #population.edges[u,v]['weight'] = random.uniform(0,1.0)
             
         for node,edge in population.edges(i):
 
